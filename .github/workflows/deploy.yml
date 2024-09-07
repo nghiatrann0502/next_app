@@ -40,11 +40,8 @@ jobs:
       - name: Deploy to server
         uses: appleboy/ssh-action@v1.0.3
         with:
-          # Địa chỉ của server
           host: ${{ secrets.HOST }}
-          # Username để login vào server
           username: ${{ secrets.USERNAME }}
-          # Private key để login vào server
           key: ${{ secrets.SSH_KEY }}
 
           script: |
