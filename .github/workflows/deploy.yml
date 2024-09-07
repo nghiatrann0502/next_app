@@ -29,6 +29,10 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ secrets.DOCKER_USERNAME }}/200lab-nextjs # Change this to your docker image name
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{raw}}
 
       - name: Build and push to docker hub
         uses: docker/build-push-action@v6
