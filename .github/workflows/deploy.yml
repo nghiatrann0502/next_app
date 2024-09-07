@@ -37,7 +37,7 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
 
-      - name: Deploy
+      - name: Deploy server
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
@@ -45,9 +45,20 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
 
           script: |
-#           Pull image về lại server
             docker pull ${{ steps.meta.outputs.tags }}
-#           Xóa container cũ nếu có
             docker rm -f 200lab-next &>/dev/null
-#           Chạy container mới
             docker run -it -d --name 200lab-next -p 3000:3000 ${{ steps.meta.outputs.tags }}
+#      - name: Deploy
+#        uses: appleboy/ssh-action@v1.0.3
+#        with:
+#          host: ${{ secrets.HOST }}
+#          username: ${{ secrets.USERNAME }}
+#          key: ${{ secrets.SSH_KEY }}
+#
+#          script: |
+##           Pull image về lại server
+#            docker pull ${{ steps.meta.outputs.tags }}
+##           Xóa container cũ nếu có
+#            docker rm -f 200lab-next &>/dev/null
+##           Chạy container mới
+#            docker run -it -d --name 200lab-next -p 3000:3000 ${{ steps.meta.outputs.tags }}
